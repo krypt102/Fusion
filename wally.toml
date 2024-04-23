@@ -1,10 +1,9 @@
 [package]
-name = "elttob/fusion"
-description = "A modern reactive UI library, built specifically for Roblox and Luau"
+name = "krypt102/fusion"
+description = "A modern reactive UI library, built specifically for Roblox and Luau. Forked to remove deferred updates, mainly for 0.2"
 license = "MIT"
-authors = ["Elttob"]
-version = "0.1.1-beta"
-
+authors = ["Krypt <kryptonforce102@gmail.com>", "Elttob"]
+version = "0.2.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 

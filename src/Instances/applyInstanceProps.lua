@@ -20,6 +20,8 @@ local xtypeof = require(Package.Utility.xtypeof)
 local logError = require(Package.Logging.logError)
 local Observer = require(Package.State.Observer)
 
+local FFLAG_DEFER_UPDATES = false
+
 local function setProperty_unsafe(instance: Instance, property: string, value: any)
 	(instance :: any)[property] = value
 end
@@ -53,12 +55,16 @@ local function bindProperty(instance: Instance, property: string, value: PubType
 		-- value is a state object - assign and observe for changes
 		local willUpdate = false
 		local function updateLater()
-			if not willUpdate then
-				willUpdate = true
-				task.defer(function()
-					willUpdate = false
-					setProperty(instance, property, value:get(false))
-				end)
+			if FFLAG_DEFER_UPDATES then
+				if not willUpdate then
+					willUpdate = true
+					task.defer(function()
+						willUpdate = false
+						setProperty(instance, property, value:get(false))
+					end)
+				end
+			else
+				setProperty(instance, property, value:get(false))
 			end
 		end
 
